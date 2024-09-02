@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Commonbutton from "../Components/Commonbutton";
 
 const AddCha = () => {
 
@@ -45,7 +47,8 @@ const AddCha = () => {
   }
   return (
     <div className="px-2 md:px-4 bg-base-200 py-6 md:py-12">
-      <div className="max-w-[900px] mx-auto  shadow-lg rounded-xl bg-orange-50  p-8">
+      <Link to={'/'}><Commonbutton>Back to Home</Commonbutton></Link>
+      <div className="max-w-[900px] mt-4 mx-auto  shadow-lg rounded-xl bg-orange-50  p-8">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-extrabold">ADD CHA</h2>
           <p className="font-light">Add a new cha for cha lovers..</p>

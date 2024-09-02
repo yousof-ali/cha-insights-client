@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Commonbutton from "../Components/Commonbutton";
 import { FiCoffee } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import SingleCha from "../Components/SingleCha";
 
 const Home = () => {
+  const [allcha ,setallcha] = useState([]);
+  const [loader ,setloader] = useState(true)
+
+  useEffect(() => {
+    fetch('http://localhost:5000/allcha')
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      setallcha(data);
+      setloader(false);
+    })
+    .catch((e) => {
+      console.log(e.message);
+    })
+  },[])
+
   return (
     <div>
       <div className="max-w-[1400px]  mx-auto">
@@ -25,8 +42,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto my-6">
-        <div className="text-center">
+      <div className="container mx-auto my-8">
+        <div className="text-center mx-3">
           <h2 className="text-2xl font-bold">Find Your Perfect Blend</h2>
           <p className="font-light">
             Brew the Perfect Moment. Dive into a world where each tea leaf tells
@@ -41,6 +58,16 @@ const Home = () => {
               </Commonbutton>
             </Link>
           </div>
+        </div>
+        <div>
+            <div>
+              {loader&& <p className="text-center mt-6"><span className="loading loading-spinner text-error"></span></p>}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-4 justify-center mx-3 items-center gap-4">
+              {
+                allcha.map((singlecha,indx) => <SingleCha key={indx} singleCha={singlecha}></SingleCha>)
+              }
+            </div>
         </div>
       </div>
     </div>
