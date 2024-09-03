@@ -3,9 +3,43 @@ import { MdEdit } from "react-icons/md";
 import { IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const SingleCha = ({ singleCha }) => {
+const SingleCha = ({ singleCha,setallcha,allcha }) => {
   const { _id, name, chef, taste, price, photo } = singleCha;
+  const handleDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        fetch(`http://localhost:5000/delete/${id}`,{
+          method:"DELETE"
+        })
+        .then(res => res.json())
+        .then(result => {
+          console.log(result)
+          if(result.deletedCount>0){
+            Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        const newAllData = allcha.filter(cha => cha._id !== _id);
+        setallcha(newAllData);
+          }
+
+        })
+      }
+    });
+  };
   return (
     <div className="flex justify-centern border-2 p-4 border-orange-400 rounded-md shadow-md items-center ">
       <div className="flex-1">
@@ -36,7 +70,10 @@ const SingleCha = ({ singleCha }) => {
             <IoEyeSharp />
           </div>
         </Link>
-        <div className="bg-red-600 rounded p-1">
+        <div
+          onClick={() => handleDelete(_id)}
+          className="bg-red-600 rounded p-1"
+        >
           <MdDelete />
         </div>
       </div>

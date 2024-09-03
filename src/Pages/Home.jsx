@@ -65,7 +65,7 @@ const Home = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-4 justify-center mx-3 items-center gap-4">
               {
-                allcha.map((singlecha,indx) => <SingleCha key={indx} singleCha={singlecha}></SingleCha>)
+                allcha.map((singlecha,indx) => <SingleCha  key={indx} allcha={allcha} setallcha={setallcha} singleCha={singlecha}></SingleCha>)
               }
             </div>
         </div>
