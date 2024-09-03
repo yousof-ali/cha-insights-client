@@ -6,6 +6,8 @@ import Errorpage from '../Pages/Errorpage';
 import AddCha from '../Pages/AddCha';
 import View from '../Pages/View';
 import Edit from '../Pages/Edit';
+import Register from '../Pages/Register';
+import Login from '../Pages/Login';
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
                 path:'/edit/:id',
                 element:<Edit></Edit>,
                 loader:({params}) => fetch(`http://localhost:5000/details/${params.id}`)
+            },
+            {
+                path:'/register',
+                element:<Register></Register>
+            },
+            {
+                path:'/login',
+                element:<Login></Login>
             }
             
             
