@@ -1,21 +1,57 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiSolidHide } from "react-icons/bi";
 import { IoEye } from "react-icons/io5";
+import { authProvider } from "../AuthProvider/AuthProvider";
+
 
 const Register = () => {
+  const {singUp} = useContext(authProvider);
   const [hide, setHide] = useState(false);
 
   const handleHide = () => {
     setHide(!hide);
   };
 
+  const handleSingUp =(e) =>{
+    e.preventDefault()
+    const form = e.target
+    const email = form.email.value 
+    const password = form.password.value
+
+    console.log(email,password)
+
+    singUp(email,password)
+    .then(result => {
+      console.log(result.user);
+      const creatAt = result.user?.metadata?.lastSignInTime
+      const user = {email,creatAt};
+      fetch('http://localhost:5000/user',{
+        method:"POST",
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(user)
+      })
+      .then(res => res.json())
+      .then(result => {
+        console.log(result)
+        if(result.insertedId){
+          console.log("user add to database successfully")
+        }
+      })
+    })
+    .catch((e) => {
+      console.log(e.message);
+    })
+  }
+
   return (
     <div>
       <h2 className="text-2xl text-center font-bold mt-6">Register</h2>
       <div className="max-w-[300px]  mx-auto my-6">
         <div className="rounded-xl shadow-2xl p-4">
-          <form>
+          <form onSubmit={handleSingUp}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Your Name</span>
@@ -25,7 +61,6 @@ const Register = () => {
                 placeholder="Name"
                 className="input input-bordered"
                 name="name"
-                required
               />
             </div>
             <div className="form-control">

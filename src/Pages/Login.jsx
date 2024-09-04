@@ -7,20 +7,50 @@ import { FaGithub } from "react-icons/fa";
 import { authProvider } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
-    const {name} = useContext(authProvider);
-    console.log(name);
-    console.log(import.meta.env.my_name)
+    const {signIn} = useContext(authProvider);
+    console.log(signIn)
   const [hide, sethide] = useState(false);
+  const [error,setError] =useState('');
 
   const handleHide = () => {
     sethide(!hide);
   };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setError('')
+    const form = e.target 
+    const email = form.email.value 
+    const password = form.password.value
+    console.log(email,password);
+    signIn(email,password)
+    .then(result => {
+      console.log(result);
+      const newCreationTime = result.user.metadata.lastSignInTime
+      const updateUser = {email,newCreationTime}
+      console.log(updateUser)
+      fetch('http://localhost:5000/update',{
+        method:"PATCH",
+        header:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(updateUser)
+      })
+      .then(res => res.json())
+      .then(result =>{
+        console.log(result);
+      })
+    })
+    .catch((e) => {
+      setError(e.message);
+    })
+  }
   return (
     <div>
       <h2 className="text-center text-2xl font-bold mt-6">Login</h2>
       <div className="max-w-[300px] mt-4 mx-auto mb-6">
         <div className="rounded-xl shadow-2xl p-4">
-          <form>
+          <form onSubmit={handleLogin}>
             <div>
               <label className="label">
                 <span className="label-text">Email</span>
@@ -29,7 +59,7 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 className="input input-bordered w-full"
-                name="Email"
+                name="email"
                 required
               />
             </div>
@@ -50,6 +80,9 @@ const Login = () => {
                 </div>
               </div>
             </div>
+            {
+              error&&<p className="text-red-600">{error}</p>
+            }
             <div className="form-control mt-6">
               <button className="btn bg-orange-300 text-white hover:bg-orange-100 hover:text-amber-800">
                 Login
