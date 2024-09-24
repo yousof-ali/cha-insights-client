@@ -29,7 +29,7 @@ const Login = () => {
       const newCreationTime = result.user.metadata.lastSignInTime
       const updateUser = {email,newCreationTime}
       console.log(updateUser)
-      fetch('http://localhost:5000/update',{
+      fetch('https://cha-insights-server.onrender.com/update',{
         method:"PATCH",
         header:{
           'content-type':'application/json'

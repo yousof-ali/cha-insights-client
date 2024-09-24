@@ -26,7 +26,7 @@ const Register = () => {
       console.log(result.user);
       const creatAt = result.user?.metadata?.lastSignInTime
       const user = {email,creatAt};
-      fetch('http://localhost:5000/user',{
+      fetch('https://cha-insights-server.onrender.com/user',{
         method:"POST",
         headers:{
           'content-type':'application/json'

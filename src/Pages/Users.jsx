@@ -7,7 +7,7 @@ const Users = () => {
   const [alluser,setallUser] =useState(loaderdata)
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/userdelete/${id}`,{
+    fetch(`https://cha-insights-server.onrender.com/userdelete/${id}`,{
         method:"DELETE"
     })
     .then(res => res.json())

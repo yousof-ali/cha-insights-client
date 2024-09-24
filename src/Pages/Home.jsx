@@ -9,7 +9,7 @@ const Home = () => {
   const [loader ,setloader] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:5000/allcha')
+    fetch('https://cha-insights-server.onrender.com/allcha')
     .then(res => res.json())
     .then(data => {
       console.log(data);

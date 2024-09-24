@@ -18,7 +18,7 @@ const AddCha = () => {
     const newCha = {name,chef,category,price,details,taste,photo}
     console.log(newCha);
     
-    fetch('http://localhost:5000/cha',{
+    fetch('https://cha-insights-server.onrender.com/cha',{
       method:"POST",
       headers:{
         "content-type":"application/json"

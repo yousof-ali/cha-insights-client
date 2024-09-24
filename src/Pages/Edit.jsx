@@ -22,7 +22,7 @@ const Edit = () => {
     const newCha = { name, chef, category, price, details, taste, photo };
     console.log(newCha);
 
-    fetch(`http://localhost:5000/edit/${_id}`,{
+    fetch(`https://cha-insights-server.onrender.com/edit/${_id}`,{
         method:"PUT",
         headers:{
              "content-type":"application/json"

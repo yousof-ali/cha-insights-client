@@ -28,12 +28,12 @@ const router = createBrowserRouter([
             {
                 path:'/details/:id',
                 element:<View></View>,
-                loader:({params}) => fetch(`http://localhost:5000/details/${params.id}`)
+                loader:({params}) => fetch(`https://cha-insights-server.onrender.com/details/${params.id}`)
             },
             {
                 path:'/edit/:id',
                 element:<Edit></Edit>,
-                loader:({params}) => fetch(`http://localhost:5000/details/${params.id}`)
+                loader:({params}) => fetch(`https://cha-insights-server.onrender.com/details/${params.id}`)
             },
             {
                 path:'/register',
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
             {
                 path:'/users',
                 element:<Users></Users>,
-                loader:()=>fetch('http://localhost:5000/users')
+                loader:()=>fetch('https://cha-insights-server.onrender.com/users')
             }
             
             
